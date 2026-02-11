@@ -1,213 +1,147 @@
-🎬 Movie Recommendation App
+# 🎬 Cinemiq – Movie Recommendation App
 
-📌 Project Overview
+## 📌 Project Overview
 
-The Movie Recommendation App is a dynamic web application built with Next.js and TypeScript that allows users to browse trending movies and save their favorite selections.
+**Cinemiq** is a dynamic web application built with **Next.js and TypeScript** that allows users to browse trending movies and save their favorite selections.  
 
-This project demonstrates real-world frontend development skills, including API integration, dynamic routing, local data storage, reusable component design, and responsive UI implementation.
+This project demonstrates real-world frontend development skills, including API integration, dynamic routing, local data storage, reusable component design, and responsive UI implementation.  
 
-The application fetches live movie data from The Movie Database (TMDB) API and provides an interactive and seamless browsing experience.
+**Why the name “Cinemiq”?**  
+- Unique and original  
+- Short, catchy, and memorable  
+- Suggests movies and modern technology  
+- Ideal for future branding or professional use  
 
+The application fetches live movie data from **The Movie Database (TMDB) API** and provides an interactive and seamless browsing experience.
 
-🎯 Project Objectives
+---
 
-This project was developed to:
+## 🎯 Project Objectives
 
-Integrate and consume data from a third-party API (TMDB)
+- Build **Cinemiq**, a movie recommendation platform  
+- Integrate TMDB API to fetch trending and recommended movies  
+- Implement dynamic routing using Next.js  
+- Enable user personalization via local storage for favorites  
+- Build reusable, scalable components  
+- Create a responsive and interactive UI  
+- Follow proper Git workflow and version control practices
 
-Implement dynamic routing using Next.js
+---
 
-Enable user personalization through local storage
+## 🛠️ Technologies Used
 
-Build reusable and scalable components
+- **Next.js** – Server-side rendering and routing  
+- **TypeScript** – Type safety and scalable development  
+- **Styled Components** – Component-based styling  
+- **TMDB API** – Fetching live movie data  
+- **Local Storage** – Saving favorite movies  
+- **Vercel / Netlify** – Deployment  
 
-Design a responsive and interactive user interface
+---
 
-Follow proper Git commit workflow and version control practices
+## ✨ Key Features
 
+1. **API Integration**  
+   - Fetches trending movies dynamically from TMDB  
+   - Handles loading and error states  
+   - Displays real-time movie data  
 
+2. **Dynamic Routing**  
+   - Movie detail pages using Next.js dynamic routing  
+   - Each movie has its own dedicated page  
 
-🛠️ Technologies Used
+3. **Save Favorite Movies**  
+   - Users can save movies to favorites  
+   - Favorites stored locally in the browser  
+   - Dedicated favorites page for easy management  
 
-Next.js – Server-side rendering and routing
+4. **Responsive & Interactive UI**  
+   - Responsive grid layout for movie cards  
+   - Smooth hover effects and animations  
+   - Mobile-friendly design  
 
-TypeScript – Type safety and scalable development
+---
 
-Styled Components – Component-based styling
+## 📂 Project Structure
 
-TMDB API – Fetching movie data
-
-Local Storage – Saving user favorite movies
-
-Vercel / Netlify – Deployment
-
-
-✨ Key Features
-
-1️⃣ API Integration
-
-Fetches trending movies dynamically from TMDB API
-
-Handles loading and error states properly
-
-Displays real-time movie data
-
-2️⃣ Dynamic Routing
-
-Implements dynamic movie detail pages using Next.js routing
-
-Each movie has its own dedicated page
-
-Optimized navigation and rendering
-
-3️⃣ Save Favorite Movies
-
-Users can save movies to their favorites
-
-Favorites are stored locally using browser local storage
-
-Dedicated favorites section for easy management
-
-4️⃣ Responsive & Interactive UI
-
-Responsive grid layout for movie cards
-
-Hover effects and smooth transitions
-
-Mobile-friendly design using media queries
-
-📂 Project Structure
-
-movie-recommendation-app/
-
+cinemiq/
 │
 ├── components/
-│   ├── MovieCard.tsx
-│   └── Layout.tsx
+│ ├── CinemiqMovieCard.tsx
+│ └── CinemiqLayout.tsx
 │
 ├── lib/
-│   └── api.ts
+│ └── cinemiqApi.ts
 │
 ├── pages/
-│   ├── index.tsx
-│   ├── movie/
-│   │   └── [id].tsx
-│   └── favorites.tsx
+│ ├── index.tsx
+│ ├── movie/
+│ │ └── [id].tsx
+│ └── favorites.tsx
 │
 ├── styles/
 ├── .env.local
 └── README.md
 
-⚙️ Installation & Setup
 
-1️⃣ Clone the Repository
+---
 
-git clone https://github.com/favouriweala/movie-recommendation-app.git
+## ⚙️ Installation & Setup
 
-cd movie-recommendation-app
+### 1️⃣ Clone the Repo
 
-2️⃣ Install Dependencies
+*bash
+
+git clone https://github.com/favouriweala/cinemiq.git
+cd cinemiq
+
+Install Dependencies
 npm install
 
-3️⃣ Set Up Environment Variables
+3️⃣ Environment Variables
 
-Create a .env.local file in the root directory:
+Create .env.local:
 
 NEXT_PUBLIC_TMDB_API_KEY=your_tmdb_api_key_here
 
-
-You can get your API key from:
-https://www.themoviedb.org/settings/api
-
-⚠️ Do not commit your .env.local file.
-
-4️⃣ Run the Development Server
+4️⃣ Run Development Server
 npm run dev
 
 
-Visit:
-
-http://localhost:3000
+Open: http://localhost:3000
 
 🔄 Git Commit Workflow
-
-This project follows a structured commit format:
 
 feat: for new features
 
 fix: for bug fixes
 
-style: for styling improvements
+style: for UI changes
 
-docs: for documentation updates
+docs: for documentation
 
-Example commits:
+Example:
 
-feat: initialize Next.js project with TypeScript
-
-feat: integrate TMDB API for fetching trending movies
-
-feat: implement dynamic movie detail pages
-
-feat: add functionality to save favorite movies
-
-style: design responsive UI using Styled Components
-
-fix: resolve rendering issues on dynamic pages
-
-docs: add API setup and usage instructions
-
-
-📊 Evaluation Criteria Coverage
-
-✅ Functionality
-
-Successfully fetches and displays trending movies
-
-Implements dynamic routing for movie details
-
-Allows saving and managing favorite movies
-
-✅ Code Quality
-
-Uses TypeScript for type safety
-
-Modular and reusable components
-
-Clean and well-structured folder organization
-
-✅ User Experience
-
-Responsive across devices
-
-Smooth navigation between pages
-
-Interactive and visually appealing movie cards
-
-✅ Version Control
-
-Regular, descriptive commits
-
-Organized repository structure
-
-Proper documentation
+feat: create Cinemiq API helper
+feat: add CinemiqMovieCard component
+feat: implement dynamic movie detail page
+style: responsive design for movie dashboard
+docs: add README instructions
 
 📈 Future Improvements
 
-Add search functionality
+Add search and filter functionality
 
-Add movie genre filtering
+Integrate user authentication
 
-Implement user authentication
+Save favorites to backend database
 
-Store favorites in a backend database
+Add dark mode
 
-Add dark mode support
+Movie recommendations using user preferences
 
 👩🏽‍💻 Author
 
-Nkeiruka Iweala
-
-Software Engineer 
+Nkeiruka Iweala – Software Engineer 
 
 solving real-world problems with code.
