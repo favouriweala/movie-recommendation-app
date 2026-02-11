@@ -2,24 +2,41 @@ import Head from "next/head";
 import CinemiqLayout from "../components/CinemiqLayout";
 import CinemiqMovieCard from "../components/CinemiqMovieCard";
 import { useCinemiqTrending } from "../lib/cinemiq";
+import styled from "styled-components";
 
 "use client";
+
+// style: make grid responsive with styled-components (mobile-first)
+const Section = styled.section``;
+
+const Title = styled.h1`
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @media (min-width: 640px) { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  @media (min-width: 900px) { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  @media (min-width: 1200px) { grid-template-columns: repeat(4, minmax(0,1fr)); }
+`;
 
 function TrendingSection() {
   const { data, loading, error } = useCinemiqTrending();
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="text-slate-300">Loading trending movies…</div>
-      </div>
+      <div style={{ padding: "4rem 0", textAlign: "center", color: "#9fb0c8" }}>Loading trending movies…</div>
     );
   }
 
   if (error) {
     return (
-      <div className="py-20 text-center">
-        <p className="text-red-400">Error loading trending movies: {error}</p>
+      <div style={{ padding: "4rem 0", textAlign: "center" }}>
+        <p style={{ color: "#ff7b7b" }}>Error loading trending movies: {error}</p>
       </div>
     );
   }
@@ -27,15 +44,14 @@ function TrendingSection() {
   const movies = data ?? [];
 
   return (
-    <section>
-      <h1 className="text-2xl font-semibold mb-6">Trending Movies</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <Section>
+      <Title>Cinemiq – Trending Movies</Title>
+      <Grid>
         {movies.map((m) => (
           <CinemiqMovieCard key={m.id} movie={m} />
         ))}
-      </div>
-    </section>
+      </Grid>
+    </Section>
   );
 }
 

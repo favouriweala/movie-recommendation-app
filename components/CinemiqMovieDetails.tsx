@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useCinemiqMovie, CinemiqMovie } from "../lib/cinemiq";
 
+// style: convert movie details to styled-components (responsive, mobile-first)
 interface Props {
   id: number;
 }
@@ -30,6 +32,60 @@ function writeFavorites(items: CinemiqMovie[]) {
   }
 }
 
+const Wrapper = styled.div`
+  max-width: 920px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 320px 1fr;
+    align-items: start;
+  }
+`;
+
+const PosterCard = styled.div`
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(180deg,#071427,#071725);
+  box-shadow: 0 6px 24px rgba(2,6,23,0.45);
+`;
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+`;
+
+const Meta = styled.div`
+  margin-top: 6px;
+  color: #9fb0c8;
+  font-size: 0.95rem;
+  display: flex;
+  gap: 16px;
+`;
+
+const Overview = styled.p`
+  margin-top: 16px;
+  color: #dbeefc;
+  line-height: 1.6;
+`;
+
+const FavoriteButton = styled.button`
+  margin-top: 18px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#4f46e5,#7c3aed);
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+
+  &:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(124,58,237,0.2); }
+`;
+
 export default function CinemiqMovieDetails({ id }: Props) {
   const { data, loading, error } = useCinemiqMovie(id);
   const [saved, setSaved] = useState(false);
@@ -55,7 +111,6 @@ export default function CinemiqMovieDetails({ id }: Props) {
       writeFavorites(filtered);
       setSaved(false);
     } else {
-      // store a trimmed movie object
       const toSave: CinemiqMovie = {
         id: data.id,
         title: data.title,
@@ -70,59 +125,46 @@ export default function CinemiqMovieDetails({ id }: Props) {
   };
 
   if (loading) {
-    return <div className="py-20 text-center text-slate-300">Loading movie…</div>;
+    return <div style={{ padding: "5rem 0", textAlign: "center", color: "#9fb0c8" }}>Loading movie…</div>;
   }
 
   if (error) {
     return (
-      <div className="py-20 text-center">
-        <p className="text-red-400">Error loading movie: {error}</p>
+      <div style={{ padding: "5rem 0", textAlign: "center" }}>
+        <p style={{ color: "#ff7b7b" }}>Error loading movie: {error}</p>
       </div>
     );
   }
 
   if (!data) {
-    return <div className="py-20 text-center text-slate-300">Movie not found.</div>;
+    return <div style={{ padding: "5rem 0", textAlign: "center", color: "#9fb0c8" }}>Movie not found.</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-      <div className="col-span-1">
-        <div className="w-full rounded-lg overflow-hidden bg-slate-800">
-          {data.poster_path ? (
-            <div className="relative w-full h-0" style={{ paddingBottom: "150%" }}>
-              <Image
-                src={`${IMAGE_BASE}${data.poster_path}`}
-                alt={data.title}
-                fill
-                style={{ objectFit: "cover" }}
-              />
-            </div>
-          ) : (
-            <div className="w-full h-64 flex items-center justify-center text-slate-400">No image</div>
-          )}
-        </div>
-      </div>
+    <Wrapper>
+      <PosterCard>
+        {data.poster_path ? (
+          <div style={{ position: "relative", width: "100%", paddingBottom: "150%" }}>
+            <Image src={`${IMAGE_BASE}${data.poster_path}`} alt={data.title} fill style={{ objectFit: "cover" }} />
+          </div>
+        ) : (
+          <div style={{ width: "100%", height: 320, display: "flex", alignItems: "center", justifyContent: "center", color: "#9fb0c8" }}>No image</div>
+        )}
+      </PosterCard>
 
-      <div className="col-span-2">
-        <h1 className="text-2xl font-bold text-white">{data.title}</h1>
-        <div className="mt-2 flex items-center gap-4 text-sm text-slate-400">
+      <div>
+        <Title>{data.title}</Title>
+        <Meta>
           <div>Release: {data.release_date ?? "—"}</div>
           <div>Rating: {data.vote_average?.toFixed(1) ?? "—"}</div>
-        </div>
+        </Meta>
 
-        <p className="mt-4 text-slate-200 leading-relaxed">{data.overview}</p>
+        <Overview>{data.overview}</Overview>
 
-        <div className="mt-6">
-          <button
-            onClick={toggleFavorite}
-            aria-pressed={saved}
-            className="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition"
-          >
-            {saved ? "Remove from Favorites" : "Save to Favorites"}
-          </button>
-        </div>
+        <FavoriteButton onClick={toggleFavorite} aria-pressed={saved}>
+          {saved ? "Remove from Favorites" : "Save to Favorites"}
+        </FavoriteButton>
       </div>
-    </div>
+    </Wrapper>
   );
 }

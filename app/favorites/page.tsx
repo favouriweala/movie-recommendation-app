@@ -2,9 +2,50 @@
 
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import styled from "styled-components";
 import CinemiqLayout from "../../components/CinemiqLayout";
 import CinemiqMovieCard from "../../components/CinemiqMovieCard";
 import { CinemiqMovie } from "../../lib/cinemiq";
+
+// style: favorites page converted to styled-components
+const Wrapper = styled.div`
+  padding: 16px 0;
+`;
+
+const Title = styled.h1`
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+`;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  @media (min-width: 640px) { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  @media (min-width: 900px) { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  @media (min-width: 1200px) { grid-template-columns: repeat(4, minmax(0,1fr)); }
+`;
+
+const CardWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+`;
+
+const RemoveButton = styled.button`
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#ef4444,#be123c);
+  color: white;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+
+  &:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(190,18,60,0.12); }
+`;
 
 function readFavorites(): CinemiqMovie[] {
   try {
@@ -46,32 +87,26 @@ export default function FavoritesPage() {
       </Head>
 
       <CinemiqLayout>
-        <div className="py-6">
-          <h1 className="text-2xl font-semibold mb-6">Your Favorites</h1>
+        <Wrapper>
+          <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+            <Title>Your Favorites</Title>
 
-          {favorites === null ? (
-            <div className="py-20 text-center text-slate-300">Loading favorites…</div>
-          ) : favorites.length === 0 ? (
-            <div className="py-20 text-center text-slate-400">You have no favorites saved yet.</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {favorites.map((m) => (
-                <div key={m.id} className="flex flex-col">
-                  <CinemiqMovieCard movie={m} />
-
-                  <div className="mt-2 flex justify-center">
-                    <button
-                      onClick={() => handleRemove(m.id)}
-                      className="inline-block px-3 py-2 rounded-md bg-rose-600 text-white text-sm font-medium hover:bg-rose-700 transition"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+            {favorites === null ? (
+              <div style={{ padding: "4rem 0", textAlign: "center", color: "#9fb0c8" }}>Loading favorites…</div>
+            ) : favorites.length === 0 ? (
+              <div style={{ padding: "4rem 0", textAlign: "center", color: "#9fb0c8" }}>You have no favorites saved yet.</div>
+            ) : (
+              <Grid>
+                {favorites.map((m) => (
+                  <CardWrap key={m.id}>
+                    <CinemiqMovieCard movie={m} />
+                    <RemoveButton onClick={() => handleRemove(m.id)}>Remove</RemoveButton>
+                  </CardWrap>
+                ))}
+              </Grid>
+            )}
+          </div>
+        </Wrapper>
       </CinemiqLayout>
     </>
   );

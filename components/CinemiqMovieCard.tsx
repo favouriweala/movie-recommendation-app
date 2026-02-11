@@ -1,23 +1,88 @@
 import Image from "next/image";
 import Link from "next/link";
+import styled from "styled-components";
 import { CinemiqMovie } from "../lib/cinemiq";
+
+// style: add hover effect to CinemiqMovieCard
+const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
 interface Props {
   movie: CinemiqMovie;
   className?: string;
 }
 
-const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+const Card = styled.article`
+  width: 100%;
+  max-width: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(180deg,#071427, #071725);
+  color: #e6eef8;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+  transition: transform 240ms cubic-bezier(.2,.9,.2,1), box-shadow 240ms ease, opacity 160ms ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 50px rgba(2,6,23,0.6);
+  }
+`;
+
+const Poster = styled.div`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 150%;
+  background: linear-gradient(180deg,#0b1220, #071425);
+`;
+
+const Content = styled.div`
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const Title = styled.h3`
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+const Meta = styled.div`
+  font-size: 0.85rem;
+  color: #9fb0c8;
+`;
+
+const DetailsLink = styled.a`
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#2563eb,#7c3aed);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(124,58,237,0.28);
+  }
+`;
 
 export default function CinemiqMovieCard({ movie, className }: Props) {
   const posterSrc = movie.poster_path ? `${IMAGE_BASE}${movie.poster_path}` : undefined;
 
   return (
-    <article
-      className={`w-56 rounded-lg overflow-hidden bg-slate-900 text-slate-50 shadow-lg transform transition-transform duration-200 hover:-translate-y-1 hover:scale-105 hover:shadow-2xl flex flex-col ${className ?? ""}`}
-      aria-label={movie.title}
-    >
-      <div className="relative w-full h-80 bg-gradient-to-b from-slate-800 to-slate-900">
+    <Card className={className} aria-label={movie.title}>
+      <Poster>
         {posterSrc ? (
           <Image
             src={posterSrc}
@@ -25,21 +90,18 @@ export default function CinemiqMovieCard({ movie, className }: Props) {
             fill
             sizes="(max-width: 480px) 100vw, 220px"
             style={{ objectFit: "cover" }}
-            priority={false}
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-slate-400">No image</div>
-        )}
-      </div>
+        ) : null}
+      </Poster>
 
-      <div className="p-3 flex flex-col gap-2">
-        <h3 className="text-sm font-semibold truncate">{movie.title}</h3>
-        <div className="text-xs text-slate-400">{movie.release_date ?? "Unknown release"}</div>
+      <Content>
+        <Title>{movie.title}</Title>
+        <Meta>{movie.release_date ?? "Unknown release"}</Meta>
 
-        <Link href={`/movie/${movie.id}`} className="mt-2 inline-block px-3 py-2 rounded-md bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-sm shadow hover:-translate-y-0.5 transition-transform">
-          View Details
+        <Link href={`/movie/${movie.id}`} passHref legacyBehavior>
+          <DetailsLink>View Details</DetailsLink>
         </Link>
-      </div>
-    </article>
+      </Content>
+    </Card>
   );
 }
