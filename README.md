@@ -79,6 +79,7 @@ Mobile-friendly design using media queries
 📂 Project Structure
 
 movie-recommendation-app/
+
 │
 ├── components/
 │   ├── MovieCard.tsx
@@ -98,8 +99,11 @@ movie-recommendation-app/
 └── README.md
 
 ⚙️ Installation & Setup
+
 1️⃣ Clone the Repository
+
 git clone https://github.com/favouriweala/movie-recommendation-app.git
+
 cd movie-recommendation-app
 
 2️⃣ Install Dependencies
@@ -196,5 +200,7 @@ Add dark mode support
 👩🏽‍💻 Author
 
 Nkeiruka Iweala
+
 Software Engineer 
+
 solving real-world problems with code.
