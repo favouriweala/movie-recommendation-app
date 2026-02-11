@@ -1,3 +1,57 @@
+import Head from "next/head";
+import CinemiqLayout from "../components/CinemiqLayout";
+import CinemiqMovieCard from "../components/CinemiqMovieCard";
+import { useCinemiqTrending } from "../lib/cinemiq";
+
+"use client";
+
+function TrendingSection() {
+  const { data, loading, error } = useCinemiqTrending();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-slate-300">Loading trending movies…</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="py-20 text-center">
+        <p className="text-red-400">Error loading trending movies: {error}</p>
+      </div>
+    );
+  }
+
+  const movies = data ?? [];
+
+  return (
+    <section>
+      <h1 className="text-2xl font-semibold mb-6">Trending Movies</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {movies.map((m) => (
+          <CinemiqMovieCard key={m.id} movie={m} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function Page() {
+  return (
+    <>
+      <Head>
+        <title>Cinemiq – Trending Movies</title>
+      </Head>
+
+      <CinemiqLayout>
+        <TrendingSection />
+      </CinemiqLayout>
+    </>
+  );
+}
 import Image from "next/image";
 
 export default function Home() {
