@@ -1,4 +1,5 @@
 🎬 Movie Recommendation App
+
 📌 Project Overview
 
 The Movie Recommendation App is a dynamic web application built with Next.js and TypeScript that allows users to browse trending movies and save their favorite selections.
@@ -6,6 +7,7 @@ The Movie Recommendation App is a dynamic web application built with Next.js and
 This project demonstrates real-world frontend development skills, including API integration, dynamic routing, local data storage, reusable component design, and responsive UI implementation.
 
 The application fetches live movie data from The Movie Database (TMDB) API and provides an interactive and seamless browsing experience.
+
 
 🎯 Project Objectives
 
@@ -39,7 +41,9 @@ Local Storage – Saving user favorite movies
 
 Vercel / Netlify – Deployment
 
+
 ✨ Key Features
+
 1️⃣ API Integration
 
 Fetches trending movies dynamically from TMDB API
@@ -73,6 +77,7 @@ Hover effects and smooth transitions
 Mobile-friendly design using media queries
 
 📂 Project Structure
+
 movie-recommendation-app/
 │
 ├── components/
@@ -143,6 +148,7 @@ fix: resolve rendering issues on dynamic pages
 docs: add API setup and usage instructions
 
 📊 Evaluation Criteria Coverage
+
 ✅ Functionality
 
 Successfully fetches and displays trending movies
@@ -190,4 +196,5 @@ Add dark mode support
 👩🏽‍💻 Author
 
 Nkeiruka Iweala
-Software Engineer solving real-world problems with code.
+Software Engineer 
+solving real-world problems with code.
