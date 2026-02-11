@@ -144,12 +144,19 @@ docs: for documentation updates
 Example commits:
 
 feat: initialize Next.js project with TypeScript
+
 feat: integrate TMDB API for fetching trending movies
+
 feat: implement dynamic movie detail pages
+
 feat: add functionality to save favorite movies
+
 style: design responsive UI using Styled Components
+
 fix: resolve rendering issues on dynamic pages
+
 docs: add API setup and usage instructions
+
 
 📊 Evaluation Criteria Coverage
 
