@@ -8,6 +8,8 @@ export interface CinemiqMovie {
   release_date: string | null;
   overview: string;
   vote_average: number;
+  // optional genre ids returned by list endpoints
+  genre_ids?: number[];
 }
 
 function getApiKey(): string {
@@ -25,6 +27,11 @@ function mapToCinemiqMovie(m: any): CinemiqMovie {
     release_date: m.release_date ?? m.first_air_date ?? null,
     overview: m.overview ?? "",
     vote_average: Number(m.vote_average ?? 0),
+    genre_ids: Array.isArray(m.genre_ids)
+      ? m.genre_ids.map((g: any) => Number(g))
+      : Array.isArray(m.genres)
+      ? m.genres.map((g: any) => Number(g.id))
+      : [],
   };
 }
 
